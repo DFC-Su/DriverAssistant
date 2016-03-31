@@ -23,7 +23,7 @@
     }
     if (dataBase.open)
     {
-//        NSLog(@"open sucess");
+
     }
     else
     {

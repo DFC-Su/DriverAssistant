@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A35EC841CAD42A000E74BA9 /* SelectModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A35EC831CAD42A000E74BA9 /* SelectModelView.m */; };
 		0A53E6B51CA973C700974733 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A53E6B41CA973C700974733 /* main.m */; };
 		0A53E6C01CA973C700974733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A53E6BF1CA973C700974733 /* Assets.xcassets */; };
 		0A53E6C31CA973C700974733 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A53E6C11CA973C700974733 /* LaunchScreen.storyboard */; };
@@ -244,6 +245,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A35EC821CAD42A000E74BA9 /* SelectModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectModelView.h; sourceTree = "<group>"; };
+		0A35EC831CAD42A000E74BA9 /* SelectModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectModelView.m; sourceTree = "<group>"; };
 		0A53E6B01CA973C700974733 /* DriverAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DriverAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A53E6B41CA973C700974733 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0A53E6BF1CA973C700974733 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -741,6 +744,8 @@
 				0A6894A31CAA3753001B337E /* Cell */,
 				0A6894AE1CAA376F001B337E /* AnswerScrollView.h */,
 				0A6894AF1CAA376F001B337E /* AnswerScrollView.m */,
+				0A35EC821CAD42A000E74BA9 /* SelectModelView.h */,
+				0A35EC831CAD42A000E74BA9 /* SelectModelView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1394,6 +1399,7 @@
 				0A53E7291CA973EB00974733 /* SubjectOneViewController.m in Sources */,
 				0A53E72A1CA973EB00974733 /* TestSelectViewController.m in Sources */,
 				0A53E7201CA973EB00974733 /* ViewController.m in Sources */,
+				0A35EC841CAD42A000E74BA9 /* SelectModelView.m in Sources */,
 				0A53E72B1CA973EB00974733 /* TestSelectModel.m in Sources */,
 				0A53E6B51CA973C700974733 /* main.m in Sources */,
 				0A6894B41CAA3AF6001B337E /* AnswerCell.m in Sources */,
