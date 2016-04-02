@@ -12,7 +12,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame withDataArray:(NSArray *)array;
 -(void)reloadData;
-
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign, readonly) int currentPage;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSMutableArray *hadAnswerArray;

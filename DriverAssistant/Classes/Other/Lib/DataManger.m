@@ -10,6 +10,7 @@
 #import "FMDatabase.h"
 #import "TestSelectModel.h"
 #import "AnswerModel.h"
+#import "SubChapterModel.h"
 
 @implementation DataManger
 +(NSArray *)getData:(DataType)type
@@ -58,6 +59,21 @@
                 model.sid = [NSString stringWithFormat:@"%d",[rs intForColumn:@"sid"]];
                 model.sname = [rs stringForColumn:@"sname"];
                 model.mtype = [NSString stringWithFormat:@"%d",[rs intForColumn:@"mtype"]];
+                [array addObject:model];
+            }
+        }
+            break;
+        case subChapter:
+        {
+            NSString *sql = @"select serial,sid,sname,pid,scount from secondlevel";
+            FMResultSet *rs = [dataBase executeQuery:sql];
+            while ([rs next]) {
+                SubChapterModel *model = [[SubChapterModel alloc] init];
+                model.serial = [rs stringForColumn:@"serial"];
+                model.sid = [NSString stringWithFormat:@"%.2f", [rs doubleForColumn:@"sid"]];
+                model.sname = [rs stringForColumn:@"sname"];
+                model.pid = [NSString stringWithFormat:@"%d", [rs intForColumn:@"pid"]];
+                model.scount = [NSString stringWithFormat:@"%d", [rs intForColumn:@"scount"]];
                 [array addObject:model];
             }
         }

@@ -11,10 +11,12 @@
 #import "DataManger.h"
 #import "AnswerModel.h"
 #import "SelectModelView.h"
-@interface AnswerViewController ()
+#import "SheetView.h"
+@interface AnswerViewController ()<SheetViewDelegate>
 {
     AnswerScrollView *_answerScrollView;
     SelectModelView * modelView;
+    SheetView *_sheetView;
 }
 @end
 
@@ -23,26 +25,57 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.navigationItem.title = _myTitle;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor whiteColor];
-    NSMutableArray *arr = [NSMutableArray array];
-    NSArray *array = [DataManger getData:answer];
-    for (int i = 0; i < array.count - 1; i++) {
-        AnswerModel *model = array[i];
-        if ([model.pid intValue] == _number+1) {
-            [arr addObject:model];
-        }
-    }
-    _answerScrollView = [[AnswerScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60-64) withDataArray:arr];
+    [self creatData];
     [self.view addSubview:_answerScrollView];
     [self creatToolBar];
     [self creatModelView];
+    [self creatSheetView];
+}
+
+- (void)creatData{
+    if (_type == 1) {
+        NSMutableArray *arr = [NSMutableArray array];
+        NSArray *array = [DataManger getData:answer];
+        for (int i = 0; i < array.count - 1; i++) {
+            AnswerModel *model = array[i];
+            if ([model.pid intValue] == _number+1) {
+                [arr addObject:model];
+            }
+        }
+        _answerScrollView = [[AnswerScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60-64) withDataArray:arr];
+    }else if (_type == 2){//顺序练习
+         _answerScrollView = [[AnswerScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60-64) withDataArray:[DataManger getData:answer]];
+    }else if (_type == 3){//随机练习
+        NSMutableArray *tempArr = [NSMutableArray array];
+        NSArray *array = [DataManger getData:answer];
+        NSMutableArray *dataArr = [NSMutableArray array];
+        [tempArr addObjectsFromArray:array];
+        for (int i=0; i<tempArr.count; i++) {
+            int index = arc4random()%(tempArr.count);
+            [dataArr addObject:tempArr[index]];
+            [tempArr removeObject:tempArr[index]];
+        }
+        _answerScrollView = [[AnswerScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60-64) withDataArray:tempArr];
+    }else if (_type == 4){//专项练习
+        NSMutableArray *arr = [NSMutableArray array];
+        NSArray *array = [DataManger getData:answer];
+        for (int i = 0; i < array.count - 1; i++) {
+            AnswerModel *model = array[i];
+            if ([model.sid intValue] == _number+1) {
+                [arr addObject:model];
+            }
+        }
+        _answerScrollView = [[AnswerScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-60-64) withDataArray:arr];    }
+
 }
 
 - (void)creatToolBar{
     UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-60-64, self.view.frame.size.width, 60)];
     barView.backgroundColor = [UIColor whiteColor];
-    NSArray *arr = @[@"111",@"查看答案",@"收藏本题"];
+    NSArray *arr = @[[NSString stringWithFormat:@"%lu",(unsigned long)_answerScrollView.dataArray.count],@"查看答案",@"收藏本题"];
     for (int i=0; i<3; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag = 301+i;
@@ -78,9 +111,24 @@
     }];
 }
 
+- (void)creatSheetView
+{
+    _sheetView = [[SheetView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-80) withSuperView:self.view andQuestionCount:50];
+    [self.view addSubview:_sheetView];
+}
+
 - (void)onClickToolBar:(UIButton *)btn
 {
     switch (btn.tag) {
+        case 301://上拉抽屉
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                _sheetView.frame = CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height-80);
+                _sheetView.backView.alpha = 0.8;
+                _sheetView.delegate = self;
+            }];
+        }
+            break;
         case 302://查看答案
         {
             if ([_answerScrollView.hadAnswerArray[_answerScrollView.currentPage] intValue]!=0) {
@@ -100,5 +148,13 @@
         default:
             break;
     }
+}
+
+#pragma mark - SheetViewDelegate
+- (void)SheetViewClick:(int)index
+{
+    UIScrollView *scrollView = _answerScrollView.scrollView;
+    scrollView.contentOffset = CGPointMake((index-1)*scrollView.frame.size.width, 0);
+    [scrollView.delegate scrollViewDidEndDecelerating:scrollView];
 }
 @end

@@ -9,6 +9,10 @@
 #import "ViewController.h"
 #import "SelectView.h"
 #import "SubjectOneViewController.h"
+#import "SubjectTwoViewController.h"
+#import "WebViewController.h"
+#define BAOMINGXVZHI  @"http://mnks.jxedt.com/ckm4/"
+#define XINSHOUSHANGLU  @"http://mnks.jxedt.com/ckm4/"
 
 @interface ViewController ()
 {
@@ -37,28 +41,38 @@
             break;
         case 102://科目二
         {
-            
+            SubjectTwoViewController *ctl = [[SubjectTwoViewController alloc] init];
+            ctl.myTitle = @"科目二 小路考";
+            [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
         case 103://科目三
         {
-            
+            SubjectTwoViewController *ctl = [[SubjectTwoViewController alloc] init];
+            ctl.myTitle = @"科目三 大路考";
+            [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
         case 104://科目四
         {
-            
+            SubjectOneViewController *ctl = [[SubjectOneViewController alloc] init];
+            ctl.myTitle = @"科目四 安全文明";
+            [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
-        case 105:
+        case 105://报名须知
         {
-            
-        }
-        case 106:
-        {
-            
+            WebViewController * ctl = [[WebViewController alloc] initWithURL:BAOMINGXVZHI];
+            ctl.myTitle = @"报名须知";
+            [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
+        case 106://新手上路
+        {     WebViewController * ctl = [[WebViewController alloc] initWithURL:XINSHOUSHANGLU];
+            ctl.myTitle = @"新手上路";
+            [self.navigationController pushViewController:ctl animated:YES];
+            
+        }
             break;
         default:
             break;
@@ -71,6 +85,7 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
     item.title = @"";
     self.navigationItem.backBarButtonItem = item;
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     _selectView = [[SelectView alloc] initWithFrame:self.view.frame andBtn:selectBtn];
     _selectView.alpha = 0;
     [self.view addSubview:_selectView];

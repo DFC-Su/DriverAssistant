@@ -20,7 +20,6 @@
 
 @implementation AnswerScrollView
 {
-    UIScrollView *_scrollView;
     UITableView *_leftTableView;
     UITableView *_centerTableView;
     UITableView *_rightTableView;
@@ -232,7 +231,7 @@
     if ([_hadAnswerArray[page-1] intValue] != 0) {
         return;
     }else{
-        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%ld", indexPath.row+1]];
+        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%d", indexPath.row+1]];
     }
     [self reloadData];
 }

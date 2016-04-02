@@ -10,6 +10,9 @@
 #import "SubjectOneCell.h"
 #import "TestSelectViewController.h"
 #import "DataManger.h"
+#import "AnswerViewController.h"
+#import "MainTestViewController.h"
+
 
 @interface SubjectOneViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -101,6 +104,7 @@
         case 0://章节练习
         {
             TestSelectViewController *ctl = [[TestSelectViewController alloc] init];
+            ctl.type = 1;
             ctl.myTitle = @"章节练习";
             ctl.dataArr = [DataManger getData:chapter];
             [self.navigationController pushViewController:ctl animated:YES];
@@ -108,14 +112,16 @@
             break;
         case 1://顺序练习
         {
-            TestSelectViewController *ctl = [[TestSelectViewController alloc] init];
+            AnswerViewController *ctl = [[AnswerViewController alloc] init];
+            ctl.type = 2;
             ctl.myTitle = @"顺序练习";
             [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
         case 2://随机练习
         {
-            TestSelectViewController *ctl = [[TestSelectViewController alloc] init];
+            AnswerViewController *ctl = [[AnswerViewController alloc] init];
+            ctl.type = 3;
             ctl.myTitle = @"随机练习";
             [self.navigationController pushViewController:ctl animated:YES];
         }
@@ -124,13 +130,14 @@
         {
             TestSelectViewController *ctl = [[TestSelectViewController alloc] init];
             ctl.myTitle = @"专项练习";
+            ctl.type = 2;
+            ctl.dataArr = [DataManger getData:subChapter];
             [self.navigationController pushViewController:ctl animated:YES];
         }
             break;
         case 4://仿真模拟考试
         {
-            TestSelectViewController *ctl = [[TestSelectViewController alloc] init];
-            ctl.myTitle = @"仿真模拟考试";
+            MainTestViewController *ctl = [[MainTestViewController alloc] init];
             [self.navigationController pushViewController:ctl animated:YES];
         }
             break;

@@ -10,6 +10,7 @@
 #import "TestSelectCell.h"
 #import "TestSelectModel.h"
 #import "AnswerViewController.h"
+#import "SubChapterModel.h"
 
 @interface TestSelectViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
@@ -64,9 +65,16 @@
         cell.numberLabel.layer.cornerRadius = 8;
         cell.numberLabel.layer.masksToBounds = YES;
     }
-    TestSelectModel *model = _dataArr[indexPath.row];
-    cell.numberLabel.text = model.pid;
-    cell.titleLable.text = model.pname;
+    if (_type == 1) {//章节练习
+        TestSelectModel *model = _dataArr[indexPath.row];
+        cell.numberLabel.text = model.pid;
+        cell.titleLable.text = model.pname;
+    }else if (_type == 2){//专项练习
+        SubChapterModel *model = _dataArr[indexPath.row];
+        cell.numberLabel.text = model.serial;
+        cell.titleLable.text = model.sname;
+    }
+
 
     return cell;
 }
@@ -80,7 +88,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AnswerViewController *answerCtl = [[AnswerViewController alloc] init];
-    answerCtl.number = indexPath.row;
+    answerCtl.myTitle = _myTitle;
+    if (_type == 1)
+    {//章节练习
+        answerCtl.type = 1;
+        answerCtl.number = indexPath.row;
+    }else if (_type == 2){//专项练习
+        answerCtl.type = 4;
+        SubChapterModel *model = _dataArr[indexPath.row];
+        answerCtl.subStrNumber = model.sid;
+    }
+
     [self.navigationController pushViewController:answerCtl animated:YES];
 }
 
