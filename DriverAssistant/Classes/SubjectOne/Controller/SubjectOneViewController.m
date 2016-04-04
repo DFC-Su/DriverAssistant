@@ -12,6 +12,7 @@
 #import "DataManger.h"
 #import "AnswerViewController.h"
 #import "MainTestViewController.h"
+#import "QuestionCollectManager.h"
 
 
 @interface SubjectOneViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -59,6 +60,8 @@
     for (int i = 0; i<4 ; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(self.view.frame.size.width/4*i+self.view.frame.size.width/4/2-30, self.view.frame.size.height-64-100, 60, 60);
+        btn.tag = 201+i;
+        [btn addTarget:self action:@selector(onClickBtn:) forControlEvents:UIControlEventTouchUpInside];
         [btn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.png",12+i]] forState:UIControlStateNormal];
         [self.view addSubview:btn];
         
@@ -67,6 +70,38 @@
         lab.textAlignment = NSTextAlignmentCenter;
         lab.font = [UIFont boldSystemFontOfSize:13];
         [self.view addSubview:lab];
+    }
+}
+- (void)onClickBtn:(UIButton *)btn{
+    switch (btn.tag) {
+        case 201://我的错题集
+        {
+            AnswerViewController *ctl = [[AnswerViewController alloc] init];
+            ctl.type = 7;
+            ctl.myTitle = @"我的错题集";
+            [self.navigationController pushViewController:ctl animated:YES];
+        }
+            break;
+        case 202://我的收藏
+        {
+            if ([QuestionCollectManager getCollectQuestion].count > 0) {
+                AnswerViewController *ctl = [[AnswerViewController alloc] init];
+                ctl.type = 8;
+                ctl.myTitle = @"我的收藏";
+                [self.navigationController pushViewController:ctl animated:YES];
+            }else
+            {
+                UIAlertController *alertCtl = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"当前没有收藏题目！" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [alertCtl addAction:action];
+                [self presentViewController:alertCtl animated:YES completion:nil];
+            }
+        
+        }
+            break;
+            
+        default:
+            break;
     }
 }
 

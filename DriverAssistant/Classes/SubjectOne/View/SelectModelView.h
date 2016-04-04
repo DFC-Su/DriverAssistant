@@ -8,12 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum{
-    testModel,
-    lookingModel
-}SelectModel;
-typedef void(^SelectTouch)(SelectModel model);
+typedef void(^SelectTouch)(UIButton *btn);
 @interface SelectModelView : UIView
-@property (nonatomic, assign) SelectModel model;
 - (SelectModelView *)initWithFrame:(CGRect)frame andTouch:(SelectTouch)touch;
 @end

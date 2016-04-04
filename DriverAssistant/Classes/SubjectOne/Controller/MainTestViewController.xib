@@ -86,7 +86,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="onClickBtn:" destination="-1" eventType="touchUpInside" id="uoN-Eb-zWQ"/>
+                                <action selector="onClickBtn:" destination="-1" eventType="touchUpInside" id="HgA-Et-lVz"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2F-gq-Qpt">
@@ -105,7 +105,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="onClickBtn:" destination="-1" eventType="touchUpInside" id="kQi-s2-Fb2"/>
+                                <action selector="onClickBtn:" destination="-1" eventType="touchUpInside" id="YPp-dX-z9R"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="合格标准：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3h-Dm-jpe">
@@ -163,7 +163,7 @@
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <nil key="simulatedBottomBarMetrics"/>
-            <point key="canvasLocation" x="261" y="391"/>
+            <point key="canvasLocation" x="6" y="375"/>
         </view>
     </objects>
 </document>

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol SheetViewDelegate
--(void)SheetViewClick:(int)index;
+@protocol SheetViewDelegate <NSObject>
+- (void)SheetViewClick:(int)index;
+- (void)clearAnswerData;
 @end
 @interface SheetView : UIView
 @property(nonatomic,weak)id<SheetViewDelegate> delegate;

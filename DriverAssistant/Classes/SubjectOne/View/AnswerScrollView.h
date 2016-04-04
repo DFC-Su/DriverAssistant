@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol scrollDelegate
+- (void)scrollViewDidEndDecelerating:(int)index;
+- (void)answerQuestion:(NSArray *)questionArr;
+
+@end
 
 @interface AnswerScrollView : UIView
+@property (nonatomic, weak) id<scrollDelegate> delegate;
 
 -(instancetype)initWithFrame:(CGRect)frame withDataArray:(NSArray *)array;
 -(void)reloadData;
@@ -16,5 +22,10 @@
 @property (nonatomic, assign, readonly) int currentPage;
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSMutableArray *hadAnswerArray;
+/**
+ 答题模式和背题模式切换临时数组
+ */
+@property (nonatomic, strong) NSMutableArray *tempAnswerArray;
+
 
 @end

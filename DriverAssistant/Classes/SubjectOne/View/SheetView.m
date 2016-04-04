@@ -38,10 +38,92 @@
 }
 - (void)creatView
 {
+    [self creatBackView];
+    [self creatTopView];
+    [self creatButtonView];
+
+}
+
+#pragma mark - 创建sheetView
+/**
+ 创建背景视图
+ */
+- (void)creatBackView
+{
     _backView = [[UIView alloc] initWithFrame:_superView.frame];
     _backView.backgroundColor = [UIColor blackColor];
     _backView.alpha = 0;
     [_superView addSubview:_backView];
+}
+/**
+ 创建头部视图
+ */
+- (void)creatTopView
+{
+    CGFloat marginTop = 5;
+    CGFloat lineLabelW = 80;
+    CGFloat lineLabelH = 8;
+    for (int i = 0; i<2; i++) {
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(_width/2-lineLabelW/2, marginTop+(marginTop+lineLabelH)*i, lineLabelW, lineLabelH)];
+        lineView.backgroundColor = [UIColor grayColor];
+        lineView.layer.cornerRadius = lineLabelH/2;
+        lineView.layer.masksToBounds = YES;
+        [self addSubview:lineView];
+    }
+
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 36, 40, 21)];
+    label1.text = @"答对";
+    [self addSubview:label1];
+    UILabel *rightNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 36, 40, 21)];
+    rightNumLabel.text = @"0";
+    rightNumLabel.textColor = [UIColor greenColor];
+    rightNumLabel.tag = 601;
+    [self addSubview:rightNumLabel];
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(95, 36, 40, 21)];
+    label2.text = @"答错";
+    [self addSubview:label2];
+    UILabel *wrongNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 36, 40, 21)];
+    wrongNumLabel.textColor = [UIColor redColor];
+    wrongNumLabel.text = @"0";
+    wrongNumLabel.tag = 602;
+    [self addSubview:wrongNumLabel];
+    UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(175, 36, 40, 21)];
+    label3.text = @"未答";
+    [self addSubview:label3];
+    UILabel *undoNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(215, 36, 40, 21)];
+    undoNumLabel.text = [NSString stringWithFormat:@"%d",_count];
+    undoNumLabel.textColor = [UIColor grayColor];
+    undoNumLabel.tag = 603;
+    [self addSubview:undoNumLabel];
+    
+    UIButton *clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    clearBtn.frame = CGRectMake(265, 30, 85, 30);
+    [clearBtn setTitle:@"清空数据" forState:UIControlStateNormal];
+    [clearBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    clearBtn.backgroundColor = [UIColor cyanColor];
+    clearBtn.layer.cornerRadius = 15;
+    clearBtn.layer.masksToBounds = YES;
+    [clearBtn addTarget:self action:@selector(clickClearBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:clearBtn];
+    
+}
+
+- (void)clickClearBtn{
+    UILabel *labelright = (UILabel *)[self viewWithTag:601];
+    UILabel *labelwrong = (UILabel *)[self viewWithTag:602];
+    UILabel *labelnoanswer = (UILabel *)[self viewWithTag:603];
+    labelright.text = [NSString stringWithFormat:@"%d", 0];
+    labelwrong.text = [NSString stringWithFormat:@"%d", 0];
+    labelnoanswer.text = [NSString stringWithFormat:@"%d",_count];
+    [_delegate clearAnswerData];
+
+}
+
+/**
+ 创建题目选项按钮
+ */
+- (void)creatButtonView
+{
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 70, self.frame.size.width, self.frame.size.height-70)];
     _scrollView.showsVerticalScrollIndicator = NO;
     [self addSubview:_scrollView];
@@ -56,14 +138,13 @@
         btn.layer.cornerRadius = 8;
         btn.layer.masksToBounds = YES;
         [btn setTitle:[NSString stringWithFormat:@"%d",i+1] forState:UIControlStateNormal];
-        btn.tag = 101 + i;
+        btn.tag = 1001 + i;
         [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:btn];
     }
     int tip = _count%6?2:1;
     _scrollView.contentSize = CGSizeMake(0, 20+54*(_count/6+1+tip));
 }
-
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
@@ -95,12 +176,11 @@
         }];
     }
 }
-
 - (void)click:(UIButton *)btn
 {
-    int index = (int)btn.tag - 100;
+    int index = (int)btn.tag - 1000;
     for (int i = 0; i<_count; i++) {
-        UIButton *button = (UIButton *)[self viewWithTag:i+101];
+        UIButton *button = (UIButton *)[self viewWithTag:i+1001];
         if (i!=index-1) {
             button.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1];
         }else{

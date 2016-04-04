@@ -10,6 +10,7 @@
 #import "AnswerCell.h"
 #import "AnswerModel.h"
 #import "Tools.h"
+#import "QuestionCollectManager.h"
 #define SIZE self.frame.size
 
 @interface AnswerScrollView ()<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>{
@@ -23,7 +24,7 @@
     UITableView *_leftTableView;
     UITableView *_centerTableView;
     UITableView *_rightTableView;
-
+    
 }
 #pragma mark - init
 - (instancetype)initWithFrame:(CGRect)frame withDataArray:(NSArray *)array
@@ -127,24 +128,39 @@
         }
     }
     
+    //判断是否已答题
     int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
     if ([_hadAnswerArray[page-1] intValue]!=0) {
-        if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
-            cell.numberImage.image=nil;
-            cell.numberImage.hidden=NO;
-            cell.numberImage.image=[UIImage imageNamed:@"19.png"];
-        }else if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+[_hadAnswerArray[page-1] intValue]-1]]&&indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
-            cell.numberImage.image=nil;
-            cell.numberImage.hidden=NO;
-            cell.numberImage.image=[UIImage imageNamed:@"20.png"];
-        }else{
-            cell.numberImage.hidden=YES;
-        }
         
+        if ([model.mtype intValue] == 1){//选择题
+            if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
+                cell.numberImage.image=nil;
+                cell.numberImage.hidden=NO;
+                cell.numberImage.image=[UIImage imageNamed:@"19.png"];
+            }else if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+[_hadAnswerArray[page-1] intValue]-1]]&&indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
+                cell.numberImage.image=nil;
+                cell.numberImage.hidden=NO;
+                cell.numberImage.image=[UIImage imageNamed:@"20.png"];
+            }else{
+                cell.numberImage.hidden=YES;
+            }
+        }else if ([model.mtype intValue] == 2){//判断题
+            if ([model.manswer isEqualToString:cell.answerLabel.text]) {
+                cell.numberImage.image=nil;
+                cell.numberImage.hidden=NO;
+                cell.numberImage.image=[UIImage imageNamed:@"19.png"];
+            }else if (![model.manswer isEqualToString:cell.answerLabel.text]&&indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
+                cell.numberImage.image=nil;
+                cell.numberImage.hidden=NO;
+                cell.numberImage.image=[UIImage imageNamed:@"20.png"];
+            }else{
+                cell.numberImage.hidden=YES;
+            }
+        }
     }else{
         cell.numberImage.hidden=YES;
     }
-
+    
     
     return cell;
 }
@@ -178,7 +194,7 @@
     NSString *str = [NSString stringWithFormat:@"答案解析：%@",model.mdesc];
     UIFont *font = [UIFont systemFontOfSize:16];
     return [Tools getSizeWithString:str withFont:font withSize:CGSizeMake(tableView.frame.size.width - 20, 400)].height + 20;
-
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -231,9 +247,18 @@
     if ([_hadAnswerArray[page-1] intValue] != 0) {
         return;
     }else{
-        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%d", indexPath.row+1]];
+        [_hadAnswerArray replaceObjectAtIndex:page-1 withObject:[NSString stringWithFormat:@"%ld", indexPath.row+1]];
+    }
+    //错题存档
+    AnswerModel *model = [self getTheFitModel:tableView];
+    if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
+        //如果已经存在则不存档
+#warning 如果已经存在则不存档 待完善
+        [QuestionCollectManager addWrongQuestion:[model.mid intValue]];
     }
     [self reloadData];
+    [_delegate answerQuestion:_hadAnswerArray];
+
 }
 
 
@@ -244,6 +269,7 @@
 {
     CGPoint currentOffset = scrollView.contentOffset;
     int page = (int)currentOffset.x/SIZE.width;
+    [_delegate scrollViewDidEndDecelerating:page+1];
     if (page < _dataArray.count - 1 && page > 0) {
         _scrollView.contentSize = CGSizeMake(currentOffset.x +SIZE.width*2, 0);
         _leftTableView.frame = CGRectMake(currentOffset.x - SIZE.width, 0, SIZE.width, SIZE.height);
@@ -302,6 +328,9 @@
     return 0;
 }
 
+/**
+ 刷新tableView数据
+ */
 - (void)reloadData
 {
     [_leftTableView reloadData];

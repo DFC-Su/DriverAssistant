@@ -233,6 +233,10 @@
 		0AC6D44E1CAF87C0000DC91D /* SubChapterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6D44D1CAF87C0000DC91D /* SubChapterModel.m */; };
 		0AC6D4551CAF9A85000DC91D /* MainTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6D4531CAF9A85000DC91D /* MainTestViewController.m */; };
 		0AC6D4561CAF9A85000DC91D /* MainTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC6D4541CAF9A85000DC91D /* MainTestViewController.xib */; };
+		0ADDE41E1CB0CBF600033900 /* QuestionCollectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDE41D1CB0CBF600033900 /* QuestionCollectManager.m */; };
+		0ADDE4751CB0FEF200033900 /* TestScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDE4741CB0FEF200033900 /* TestScoreModel.m */; };
+		0ADDE4791CB10B0800033900 /* ShowScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADDE4771CB10B0800033900 /* ShowScoreViewController.m */; };
+		0ADDE47C1CB10C4F00033900 /* ShowScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADDE47B1CB10C4F00033900 /* ShowScoreViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -512,6 +516,13 @@
 		0AC6D4521CAF9A85000DC91D /* MainTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTestViewController.h; sourceTree = "<group>"; };
 		0AC6D4531CAF9A85000DC91D /* MainTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTestViewController.m; sourceTree = "<group>"; };
 		0AC6D4541CAF9A85000DC91D /* MainTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTestViewController.xib; sourceTree = "<group>"; };
+		0ADDE41C1CB0CBF600033900 /* QuestionCollectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionCollectManager.h; sourceTree = "<group>"; };
+		0ADDE41D1CB0CBF600033900 /* QuestionCollectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionCollectManager.m; sourceTree = "<group>"; };
+		0ADDE4731CB0FEF200033900 /* TestScoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScoreModel.h; sourceTree = "<group>"; };
+		0ADDE4741CB0FEF200033900 /* TestScoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestScoreModel.m; sourceTree = "<group>"; };
+		0ADDE4761CB10B0800033900 /* ShowScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowScoreViewController.h; sourceTree = "<group>"; };
+		0ADDE4771CB10B0800033900 /* ShowScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowScoreViewController.m; sourceTree = "<group>"; };
+		0ADDE47B1CB10C4F00033900 /* ShowScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowScoreViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -683,9 +694,11 @@
 		0A53E6F31CA973EB00974733 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				0A53E6F41CA973EB00974733 /* fmdb */,
+				0ADDE41C1CB0CBF600033900 /* QuestionCollectManager.h */,
+				0ADDE41D1CB0CBF600033900 /* QuestionCollectManager.m */,
 				0AC6D4491CAF869C000DC91D /* DataManger.h */,
 				0AC6D44A1CAF869C000DC91D /* DataManger.m */,
-				0A53E6F41CA973EB00974733 /* fmdb */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -762,6 +775,9 @@
 				0AC6D4521CAF9A85000DC91D /* MainTestViewController.h */,
 				0AC6D4531CAF9A85000DC91D /* MainTestViewController.m */,
 				0AC6D4541CAF9A85000DC91D /* MainTestViewController.xib */,
+				0ADDE4761CB10B0800033900 /* ShowScoreViewController.h */,
+				0ADDE4771CB10B0800033900 /* ShowScoreViewController.m */,
+				0ADDE47B1CB10C4F00033900 /* ShowScoreViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -775,6 +791,8 @@
 				0A6896311CAA70ED001B337E /* AnswerModel.m */,
 				0AC6D44C1CAF87C0000DC91D /* SubChapterModel.h */,
 				0AC6D44D1CAF87C0000DC91D /* SubChapterModel.m */,
+				0ADDE4731CB0FEF200033900 /* TestScoreModel.h */,
+				0ADDE4741CB0FEF200033900 /* TestScoreModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1386,6 +1404,7 @@
 				0A6895CA1CAA6B6B001B337E /* 285.png in Resources */,
 				0A68961C1CAA6B6B001B337E /* 15.png in Resources */,
 				0A6895E01CAA6B6B001B337E /* 307.png in Resources */,
+				0ADDE47C1CB10C4F00033900 /* ShowScoreViewController.xib in Resources */,
 				0A6895F21CAA6B6B001B337E /* 325.png in Resources */,
 				0A6895D21CAA6B6B001B337E /* 293.png in Resources */,
 				0A68959B1CAA6B6B001B337E /* 238.png in Resources */,
@@ -1451,11 +1470,13 @@
 				0A53E72B1CA973EB00974733 /* TestSelectModel.m in Sources */,
 				0A53E6B51CA973C700974733 /* main.m in Sources */,
 				0A6894B41CAA3AF6001B337E /* AnswerCell.m in Sources */,
+				0ADDE4751CB0FEF200033900 /* TestScoreModel.m in Sources */,
 				0A6894B01CAA376F001B337E /* AnswerScrollView.m in Sources */,
 				0A53E7231CA973EB00974733 /* FMDatabase.m in Sources */,
 				0A53E7251CA973EB00974733 /* FMDatabasePool.m in Sources */,
 				0A35EC8A1CAD55F300E74BA9 /* SubjectTwoViewController.m in Sources */,
 				0AC6D4551CAF9A85000DC91D /* MainTestViewController.m in Sources */,
+				0ADDE41E1CB0CBF600033900 /* QuestionCollectManager.m in Sources */,
 				0A6896351CAA73C0001B337E /* Tools.m in Sources */,
 				0A53E7271CA973EB00974733 /* FMResultSet.m in Sources */,
 				0A6896321CAA70ED001B337E /* AnswerModel.m in Sources */,
@@ -1464,6 +1485,7 @@
 				0A6894AC1CAA3753001B337E /* TestSelectCell.m in Sources */,
 				0A53E7241CA973EB00974733 /* FMDatabaseAdditions.m in Sources */,
 				0A35EC931CAD5E7700E74BA9 /* WebViewController.m in Sources */,
+				0ADDE4791CB10B0800033900 /* ShowScoreViewController.m in Sources */,
 				0A35EC8F1CAD56DA00E74BA9 /* SubjectTwoCell.m in Sources */,
 				0A6894B81CAA3F2F001B337E /* AnswerViewController.m in Sources */,
 				0AC6D44B1CAF869C000DC91D /* DataManger.m in Sources */,

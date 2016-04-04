@@ -18,6 +18,9 @@
 @property (nonatomic, copy) NSString *pname;
 @property (nonatomic, copy) NSString *sid;
 @property (nonatomic, copy) NSString *sname;
+/**
+ 题目类型 1-选择题 2-判断题
+ */
 @property (nonatomic, copy) NSString *mtype;
 
 @end

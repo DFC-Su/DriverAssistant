@@ -47,12 +47,7 @@
 }
 
 - (void) click:(UIButton *)btn{
-    if (btn.tag == 401) {
-        _model = testModel;
-    }else{
-        _model = lookingModel;
-    }
-    block(_model);
+    block(btn);
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 0;
     }];

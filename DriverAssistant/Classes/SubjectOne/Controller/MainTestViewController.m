@@ -7,6 +7,7 @@
 //
 
 #import "MainTestViewController.h"
+#import "AnswerViewController.h"
 
 @interface MainTestViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *button1;
@@ -26,7 +27,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)onClickBtn:(id)sender {
+- (IBAction)onClickBtn:(UIButton *)sender {
+    if (sender.tag == 201) {
+        AnswerViewController *answerCtl = [[AnswerViewController alloc] init];
+        answerCtl.type = 5;
+        [self.navigationController pushViewController:answerCtl animated:YES];
+    }else if(sender.tag == 202){
+        AnswerViewController *answerCtl = [[AnswerViewController alloc] init];
+        answerCtl.type = 5;
+        [self.navigationController pushViewController:answerCtl animated:YES];
+    }
 }
 
 @end
