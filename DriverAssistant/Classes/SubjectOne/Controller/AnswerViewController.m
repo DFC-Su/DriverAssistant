@@ -353,7 +353,9 @@
             case 401:
             {
                 if ([self.navigationItem.rightBarButtonItem.title isEqualToString:@"背题模式"]) {
-                    //                    _answerScrollView.hadAnswerArray = [_answerScrollView.tempAnswerArray mutableCopy];
+                    for (int i = 0; i<_answerScrollView.tempAnswerArray.count; i++) {
+                        [_answerScrollView.tempAnswerArray replaceObjectAtIndex:i withObject:@"0"];
+                    }
                     self.navigationItem.rightBarButtonItem.title = @"答题模式";
                     [_answerScrollView reloadData];
                 }
@@ -363,18 +365,9 @@
             case 402:
             {
                 if ([self.navigationItem.rightBarButtonItem.title isEqualToString:@"答题模式"]) {
-                    //                    _answerScrollView.tempAnswerArray = [_answerScrollView.tempAnswerArray mutableCopy];
-                    //                    for (int i=0; i<_answerScrollView.hadAnswerArray.count; i++) {
-                    //                        AnswerModel *model = _questionsArray[i];
-                    //                        if ([model.mtype intValue]==1) {
-                    //                            [_answerScrollView.hadAnswerArray replaceObjectAtIndex:i withObject:model.manswer];
-                    //
-                    //                        } else if([model.mtype intValue]==2){
-                    //                            [_answerScrollView.hadAnswerArray replaceObjectAtIndex:i withObject:model.manswer];
-                    //
-                    //                        }
-                    //                    }
-                    self.navigationItem.rightBarButtonItem.title = @"背题模式";
+                    for (int i = 0; i<_answerScrollView.tempAnswerArray.count; i++) {
+                        [_answerScrollView.tempAnswerArray replaceObjectAtIndex:i withObject:@"1"];
+                    }                    self.navigationItem.rightBarButtonItem.title = @"背题模式";
                     [_answerScrollView reloadData];
                 }
             }

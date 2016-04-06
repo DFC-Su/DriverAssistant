@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) NSMutableArray *hadAnswerArray;
 /**
- 答题模式和背题模式切换临时数组
+ 答题模式和背题模式切换临时数组,答题模式存储0，背题模式存储1
  */
 @property (nonatomic, strong) NSMutableArray *tempAnswerArray;
 

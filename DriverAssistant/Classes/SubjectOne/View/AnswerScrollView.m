@@ -34,8 +34,11 @@
         _currentPage = 0;
         _dataArray = [NSArray arrayWithArray:array];
         _hadAnswerArray = [NSMutableArray array];
+        _tempAnswerArray = [NSMutableArray array];
+
         for (int i = 0; i<array.count; i++) {
             [_hadAnswerArray addObject:@"0"];
+            [_tempAnswerArray addObject:@"0"];
         }
         [self creatScrollViewWithFrame:frame];
         [self creatTableViewWithFrame:frame];
@@ -130,8 +133,39 @@
     
     //判断是否已答题
     int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
-    if ([_hadAnswerArray[page-1] intValue]!=0) {
+    if ([_tempAnswerArray[page-1] intValue] == 0){//答题模式
         
+        if ([_hadAnswerArray[page-1] intValue]!=0) {
+            
+            if ([model.mtype intValue] == 1){//选择题
+                if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
+                    cell.numberImage.image=nil;
+                    cell.numberImage.hidden=NO;
+                    cell.numberImage.image=[UIImage imageNamed:@"19.png"];
+                }else if (![model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+[_hadAnswerArray[page-1] intValue]-1]]&&indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
+                    cell.numberImage.image=nil;
+                    cell.numberImage.hidden=NO;
+                    cell.numberImage.image=[UIImage imageNamed:@"20.png"];
+                }else{
+                    cell.numberImage.hidden=YES;
+                }
+            }else if ([model.mtype intValue] == 2){//判断题
+                if ([model.manswer isEqualToString:cell.answerLabel.text]) {
+                    cell.numberImage.image=nil;
+                    cell.numberImage.hidden=NO;
+                    cell.numberImage.image=[UIImage imageNamed:@"19.png"];
+                }else if (![model.manswer isEqualToString:cell.answerLabel.text]&&indexPath.row==[_hadAnswerArray[page-1] intValue]-1) {
+                    cell.numberImage.image=nil;
+                    cell.numberImage.hidden=NO;
+                    cell.numberImage.image=[UIImage imageNamed:@"20.png"];
+                }else{
+                    cell.numberImage.hidden=YES;
+                }
+            }
+        }else{
+            cell.numberImage.hidden=YES;
+        }
+    }else{//背题模式
         if ([model.mtype intValue] == 1){//选择题
             if ([model.manswer isEqualToString:[NSString stringWithFormat:@"%c",'A'+(int)indexPath.row]]) {
                 cell.numberImage.image=nil;
@@ -157,8 +191,7 @@
                 cell.numberImage.hidden=YES;
             }
         }
-    }else{
-        cell.numberImage.hidden=YES;
+
     }
     
     
@@ -234,7 +267,7 @@
     [view addSubview:label];
     
     int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
-    if ([_hadAnswerArray[page-1] intValue] != 0) {
+    if ([_hadAnswerArray[page-1] intValue] != 0||[_tempAnswerArray[page-1] intValue] != 0) {
         return view;
     }
     
@@ -244,6 +277,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int page = [self getQuestionNumber:tableView andCurrentPage:_currentPage];
+    if ([_tempAnswerArray[page-1] intValue] == 1) {//背题模式
+        return;
+    }
     if ([_hadAnswerArray[page-1] intValue] != 0) {
         return;
     }else{
@@ -258,7 +294,7 @@
     }
     [self reloadData];
     [_delegate answerQuestion:_hadAnswerArray];
-
+    
 }
 
 
